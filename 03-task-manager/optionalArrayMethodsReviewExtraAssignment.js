@@ -154,6 +154,96 @@ const names = [
   'Amy You'
 ];
 
+//Create a New Array with Only Each Person's Last Name
+const everyonesLastName1 = names.map((name) => {
+  const eachWordSeparated = name.split(" ");
+  const lastName = eachWordSeparated.pop();
+  return lastName;
+});
+console.log('Everyone last name', everyonesLastName1);
+
+//Filter names that don't match the format "<first> <last>"
+const rightFormat1 = /^\w+ \w+$/;
+const matchesTeachersPedanticFormattingRule1 = names.filter((name) => {
+  return name.match(rightFormat1);
+});
+console.log('Good students', matchesTeachersPedanticFormattingRule1);
+
+// Create a New Array Where Everyone's Name is Converted to "Title Case"
+const titledNames1 = names.map((name) => {
+  const eachWordSeparated = name.split(" ");
+
+  const titledName = eachWordSeparated.map((inputWord) => {
+    const inputLetters = inputWord.split("");
+    const wordWithFirstLetterUppercase = inputLetters
+      .map((letter, idx) => (
+        idx === 0 ? letter.toUpperCase() : letter.toLowerCase()
+      ))
+      .join("");
+    return wordWithFirstLetterUppercase;
+  });
+
+  return titledName.join(" ");
+});
+console.log('TitledNames', titledNames1);
+
+//Remove Names with the Wrong Format, Change to "Title Case", Remove People Whose Last Name Ends with 'z', 
+//and Write a Signup Message
+const transformWordIntoTitle1 = (characterInWord, indexOfCharacter) => {
+  return indexOfCharacter === 0 ? characterInWord.toUpperCase() : characterInWord.toLowerCase();
+};
+
+const transformStringIntoTitledWords1 = (wordInString) => {
+  const letters = wordInString.split('');
+  const titleCaseLetters = letters.map(transformWordIntoTitle1);
+  return titleCaseLetters.join('');
+};
+
+const transformNameIntoTitleCase1 = (name) => {
+  const nameWords = name.split(/ +/);
+  const titleCaseWords = nameWords.map(transformStringIntoTitledWords1);
+  return titleCaseWords.join(' ');
+};
+
+console.log(
+  'TitledNames verbose',
+  names.map(transformNameIntoTitleCase1)
+);
+
+const result1 = names
+  .filter((name) => name.match(rightFormat1))
+  .map(transformNameIntoTitleCase1)
+  .filter((name) => {
+    const lastLetter = name.slice(-1);
+    return lastLetter.toLowerCase() !== 'z';
+  })
+  .map((name) => `
+    Hey there ${name}!
+    Want to buy my thing?
+  `);
+
+console.log('Result', result1);
+
+
+// Function to convert a string to title case
+const toTitleCase = (str) => {
+  return str.toLowerCase().replace(/(^|\s)\S/g, (firstLetter) => firstLetter.toUpperCase());
+};
+
+// Filter and process names according to the requirements
+const result2 = names
+  // Filter out names with incorrect format
+  .filter((name) => name.match(rightFormat1))
+  // Convert names to title case
+  .map((name) => toTitleCase(name))
+  // Filter out names whose last name ends with 'z'
+  .filter((name) => !name.split(' ')[1].toLowerCase().endsWith('z'))
+  // Create signup message
+  .map((name) => `Hey ${name}, sign up for our service!`);
+
+console.log(result2);
+
+
 ///////////////////////////////////////////////////////////////////////////////
 //// put your answers above if you wish to do the challenges on your own //////
 ///////////////////////////////////////////////////////////////////////////////
@@ -170,23 +260,23 @@ const names = [
 ///////////////////////////////////////////////////////////////////////////////
 
 //////// CHALLENGE: Get everyone's last name
-const everyonesLastName = names.map((name) => {
+//const everyonesLastName = names.map((name) => {
   // `.map` can transform each element 1:1
-  const eachWordSeparated = name.split(" ")
+  //const eachWordSeparated = name.split(" ")
   // how to get the last index from JS array
-  const lastName = eachWordSeparated.pop();
-  return lastName;
+  //const lastName = eachWordSeparated.pop();
+ /* return lastName;
 });
-console.log('everyone last name', everyonesLastName);
+console.log('everyone last name', everyonesLastName);*/
 
 //////// CHALLENGE: Filter to the people who followed the right
 // "right format" is "<first name> <last name>" with a single space!
 const rightFormat = /^\w+ \w+$/;
 const matchesTeachersPedanticFormattingRule = names.filter((name) => {
-  return name.match(rightFormat);
+return name.match(rightFormat);
 });
 console.log('good students', matchesTeachersPedanticFormattingRule)
-// (joke :)
+ //(joke :)
 
 
 //////// CHALLENGE: Change everyone's name to "Title Case"
@@ -198,24 +288,24 @@ console.log('good students', matchesTeachersPedanticFormattingRule)
 
 // The next section will breakdown this example in much greater detail!
 
-const titledNames = names.map((name) => {
+//const titledNames = names.map((name) => {
   // `.map` can transform each element 1:1
-  const eachWordSeparated = name.split(" ")
+  //const eachWordSeparated = name.split(" ")
 
-  const titledName = eachWordSeparated.map((inputWord) => {
-    const inputLetters = inputWord.split("");
-    const wordWithFirstLetterUppercase = inputLetters
-      .map((letter, idx) => (
-        idx === 0
-          ? letter.toUpperCase()
-          : letter.toLowerCase()
-      ))
-      .join("")
-    return wordWithFirstLetterUppercase
-  });
-  return titledName.join(" ")
-});
-console.log('titledNames', titledNames);
+  //const titledName = eachWordSeparated.map((inputWord) => {
+    //const inputLetters = inputWord.split("");
+    //const wordWithFirstLetterUppercase = inputLetters
+    //  .map((letter, idx) => (
+      //  idx === 0
+        //  ? letter.toUpperCase()
+          //: letter.toLowerCase()
+      //))
+      //.join("")
+    //return wordWithFirstLetterUppercase
+  //});
+  //return titledName.join(" ")
+//});
+//console.log('titledNames', titledNames);
 
 // Same example as above (change every name to title case), but I'll break it
 // up into smaller pieces to make it more readable. Each callback function
